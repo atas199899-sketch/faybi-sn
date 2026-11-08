@@ -758,6 +758,15 @@ grant execute on function public.delete_my_account() to authenticated;
 alter table public.profiles add column if not exists logo_img      text not null default '' check (length(logo_img) <= 400000);
 alter table public.profiles add column if not exists signature_img text not null default '' check (length(signature_img) <= 400000);
 alter table public.profiles add column if not exists stamp_img     text not null default '' check (length(stamp_img) <= 400000);
+-- Seules des images encodées sont acceptées (pas de texte ni de code glissé à la place)
+do $$ begin
+  if not exists (select 1 from pg_constraint where conname = 'profiles_images_format') then
+    alter table public.profiles add constraint profiles_images_format check (
+      logo_img ~ '^(data:image/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+)?$'
+      and signature_img ~ '^(data:image/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+)?$'
+      and stamp_img ~ '^(data:image/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+)?$');
+  end if;
+end $$;
 alter table public.profiles add column if not exists brand_color   text not null default '' check (brand_color = '' or brand_color ~ '^#[0-9A-Fa-f]{6}$');
 grant update (logo_img, signature_img, stamp_img, brand_color) on public.profiles to authenticated;
 

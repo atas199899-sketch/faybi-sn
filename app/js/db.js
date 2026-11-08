@@ -1,5 +1,6 @@
 // Accès aux données : tout ce qui parle à Supabase passe par ce fichier.
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.50.0/+esm';
+// supabase-js 2.50.0 est servi par le site (vendor/), chargé avant ce module dans index.html
+const { createClient } = window.supabase;
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from './config.js';
 
 export const configured = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);

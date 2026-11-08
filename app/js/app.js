@@ -318,7 +318,7 @@ function paper(d, co, c) {
   return `<article class="paper" aria-label="Aperçu du document"${pro && P.brand_color ? ` style="--accent:${esc(P.brand_color)}"` : ''}>
     ${d.status === 'draft' ? '<div class="watermark" aria-hidden="true">BROUILLON</div>' : ''}
     <div class="p-top">
-      <div class="p-co">${logo ? `<img src="${logo}" alt="" class="p-logo">` : ''}<b>${esc(co.name || 'Votre nom')}</b>${co.job ? `<div class="job">${esc(co.job)}</div>` : ''}
+      <div class="p-co">${logo ? `<img src="${esc(logo)}" alt="" class="p-logo">` : ''}<b>${esc(co.name || 'Votre nom')}</b>${co.job ? `<div class="job">${esc(co.job)}</div>` : ''}
         <div>${esc(co.address)}${co.address ? '<br>' : ''}${esc(co.phone_pay)}${co.email ? ' · ' + esc(co.email) : ''}${co.ninea ? '<br>NINEA : ' + esc(co.ninea) : ''}</div></div>
       <div class="p-title"><h3>${dev ? 'DEVIS' : 'FACTURE'}</h3>
         <dl><dt>N°</dt><dd>${esc(d.number || 'attribué à la validation')}</dd><dt>Date</dt><dd>${fmtDate(d.issue_date)}</dd>
@@ -342,7 +342,7 @@ function paper(d, co, c) {
       ${d.notes || co.mentions ? `<div class="p-sec"><div class="lbl">Conditions</div><div class="muted">${esc(d.notes)}${d.notes && co.mentions ? '<br>' : ''}${esc(co.mentions)}</div></div>` : ''}
     </div>
     ${sig || stp ? `<div class="p-sign"><div class="lbl">${stp && sig ? 'Cachet et signature' : stp ? 'Cachet' : 'Signature'}</div>
-      <div class="p-sign-imgs">${stp ? `<img src="${stp}" alt="Cachet" class="p-stamp">` : ''}${sig ? `<img src="${sig}" alt="Signature" class="p-sig">` : ''}</div>
+      <div class="p-sign-imgs">${stp ? `<img src="${esc(stp)}" alt="Cachet" class="p-stamp">` : ''}${sig ? `<img src="${esc(sig)}" alt="Signature" class="p-sig">` : ''}</div>
       <div>${esc(co.name || '')}</div></div>` : ''}
     ${showMade() ? `<p class="p-made">${dev ? 'Devis créé' : 'Facture créée'} avec <a href="${MADE_URL}" target="_blank" rel="noopener">Faybi SN</a> · facturation gratuite pour les freelances · faybi-sn.pages.dev</p>` : ''}
   </article>`;
@@ -547,7 +547,7 @@ function vCatalog() {
 function brandCard(p) {
   const pro = isPro(), off = pro ? '' : 'disabled';
   const box = (k, label, acts) => `<div class="brand-box"><b>${label}</b>
-    <div class="brand-show">${p[k] ? `<img src="${p[k]}" alt="${label}">` : '<span class="muted">Aucun élément</span>'}</div>
+    <div class="brand-show">${p[k] ? `<img src="${esc(p[k])}" alt="${label}">` : '<span class="muted">Aucun élément</span>'}</div>
     <div class="row">${acts}${p[k] ? `<button class="btn sm ghost" data-act="imgDel" data-k="${k}" ${ui.busy ? 'disabled' : ''}>Retirer</button>` : ''}</div></div>`;
   const pick = k => `<button class="btn sm" data-act="imgPick" data-k="${k}" ${off}>Importer une image</button>`;
   return `<section class="card stack" style="gap:12px"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Logo, signature et cachet</h2>${pro ? '<span class="pill good">Pro</span>' : '<span class="pill neutral">Pro</span>'}</div>
@@ -806,7 +806,7 @@ function initSigPad() {
 }
 
 /* ---------- PDF : fichier prêt à joindre dans WhatsApp ---------- */
-const PDF_LIB = 'https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js';
+const PDF_LIB = 'vendor/html2pdf-0.10.1.bundle.min.js';   // servi par le site, chargé à la première demande
 let pdfLib = null;
 const loadPdfLib = () => pdfLib ||= new Promise((ok, ko) => {
   const s = document.createElement('script');

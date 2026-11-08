@@ -1,7 +1,8 @@
 // Faybi SN : espace d'administration, séparé de l'application des freelances.
 // Connexion par code seul : admin_login renvoie un jeton de séance, envoyé ensuite dans l'en-tête x-admin-token.
 // Toutes les données passent par les fonctions admin_* de supabase/schema.sql, qui refusent les appels sans jeton valide.
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.50.0/+esm';
+// supabase-js 2.50.0 est servi par le site (app/vendor/), chargé avant ce module dans index.html
+const { createClient } = window.supabase;
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../app/js/config.js';
 import { esc, num } from '../app/js/format.js';
 

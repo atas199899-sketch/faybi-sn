@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<script>/* Ancienne adresse : on envoie vers la nouvelle */if(location.hostname==='facture-sn.pages.dev')location.replace('https://faybi-sn.pages.dev'+location.pathname+location.search+location.hash)</script>
+<script src="/site/old-host.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Faybi SN Admin</title>
 <meta name="robots" content="noindex, nofollow">
@@ -16,6 +16,7 @@
 <body>
 <div id="root"><p class="boot">Chargement…</p></div>
 <div id="toast" class="toast" role="status" hidden></div>
+<script src="../app/vendor/supabase-2.50.0.js"></script>
 <script type="module" src="admin.js"></script>
 </body>
 </html>

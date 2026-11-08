@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<script>/* Ancienne adresse : on envoie vers la nouvelle */if(location.hostname==='facture-sn.pages.dev')location.replace('https://faybi-sn.pages.dev'+location.pathname+location.search+location.hash)</script>
+<script src="/site/old-host.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Conditions d’utilisation · Faybi SN</title>
 <meta name="description" content="Les règles d’utilisation de Faybi SN.">
@@ -56,9 +56,6 @@
 
   <p style="margin-top:32px"><a href="confidentialite.html">Politique de confidentialité</a> · <a href="app/">Ouvrir l’application</a></p>
 </main>
-<script type="module">
-import {WHATSAPP_GATEWAY} from './app/js/config.js';
-if (WHATSAPP_GATEWAY) document.getElementById('wa').href = 'https://wa.me/' + WHATSAPP_GATEWAY;
-</script>
+<script type="module" src="/site/legal.js"></script>
 </body>
 </html>
